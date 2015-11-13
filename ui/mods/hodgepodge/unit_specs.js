@@ -4,6 +4,7 @@
   var config = require.s.contexts._.config
   config.waitSeconds = 0
   config.paths.hodgepodge = 'coui://ui/mods/hodgepodge'
+  config.paths.dev = 'coui://dev'
   config.paths.shared = 'coui://ui/main/game/galactic_war/shared/js'
 
   window.last_unit_specs = null
@@ -27,18 +28,22 @@
 require([
   'hodgepodge/spec_loader',
   'hodgepodge/digest',
-], function(spec_loader, digest) {
+  'dev/jsondiff',
+], function(spec_loader, digest, jsondiff) {
   "use strict";
 
   var analyze = function(specs) {
     //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
     //console.log('base ship', specs['/pa/units/sea/base_ship/base_ship.json'])
     Object.keys(last_unit_specs).forEach(function(id) {
+    //['/pa/units/air/support_platform/support_platform.json'].forEach(function(id) {
       var d = digest(id, specs)
-      if (JSON.stringify(d) != JSON.stringify(last_unit_specs[id])) {
-        console.log(d, last_unit_specs[id])
-      } else {
-        console.log('match', id)
+      var diff = jsondiff.diff(d, last_unit_specs[id])
+      if (diff) {
+        //var keys = Object.keys(diff)
+        //if (keys.length == 1 && keys[0] == 'build') return
+        console.log(id, diff)
+        //console.log(d, last_unit_specs[id])//, specs[id])
       }
     })
 
@@ -55,4 +60,4 @@ require([
   if (last_unit_specs) {
     spec_loader.load(Object.keys(last_unit_specs)).then(analyze)
   }
-})()
+})

@@ -29,7 +29,15 @@ define(['shared/gw_specs'], function(loader) {
 
     base = flattenBaseSpecs(base, specs, tag);
 
-    return _.merge({}, base, spec);
+    return _.merge({}, base, spec, customMerge);
+  }
+
+  var customMerge = function(objectValue, sourceValue, key, object, source) {
+    if (Array.isArray(sourceValue)) {
+      return sourceValue
+    } else {
+      return undefined // default
+    }
   }
 
   return {
