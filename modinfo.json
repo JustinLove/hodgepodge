@@ -1,0 +1,48 @@
+{
+  "author": "wondible",
+  "build": "89528",
+  "category": ["units", "framework"],
+  "context": "client",
+  "date": "2015/10/28",
+  "description": "Allow mixing server mods, especially single-units",
+  "display_name": "HodgePodge",
+  "forum": null,
+  "identifier": "com.wondible.pa.hodgepodge",
+  "priority": 50,
+  "commnet": "new_game is for testing, build in sandbox is a nod to Sandbox Unit Organizer",
+  "scenes": {
+    "global_mod_list": [
+      "coui://ui/mods/hodgepodge/global.js"
+    ],
+    "new_game": [
+      "coui://ui/mods/hodgepodge/unit_specs.js"
+    ],
+    "live_game": [
+      "coui://ui/mods/hodgepodge/unit_specs.js",
+      "coui://ui/mods/hodgepodge/build.js"
+    ],
+    "live_game_action_bar": [
+      "coui://ui/mods/hodgepodge/unit_specs.js"
+    ],
+    "live_game_build_bar": [
+      "coui://ui/mods/hodgepodge/unit_specs.js",
+      "coui://ui/mods/hodgepodge/build.js"
+    ],
+    "live_game_sandbox": [
+      "coui://ui/mods/hodgepodge/unit_specs.js",
+      "coui://ui/mods/hodgepodge/build.js"
+    ],
+    "live_game_selection": [
+      "coui://ui/mods/hodgepodge/build.js"
+    ],
+    "live_game_unit_alert": [
+      "coui://ui/mods/hodgepodge/build.js"
+    ],
+    "live_game_world_popup": [
+      "coui://ui/mods/hodgepodge/build.js"
+    ]
+  },
+  "signature": "not yet implemented",
+  "version": "0.1.0"
+}
+
