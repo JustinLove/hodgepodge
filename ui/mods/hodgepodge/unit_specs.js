@@ -8,7 +8,7 @@
     requireGW(['shared/gw_specs'], function(loader) {
       console.log('loaded', loader)
       // [] is truthy but concatiates to strings as ''
-      loader.genUnitSpecs(['/pa/units/land/base_bot/base_bot.json', '/pa/units/land/baboom/baboom.json'], []).then(function(specs) {
+      loader.genUnitSpecs(Object.keys(last_unit_specs), []).then(function(specs) {
         Object.keys(specs).forEach(function(id) {
           specs[id] = flattenBaseSpecs(specs[id], specs, '')
         })
@@ -21,32 +21,40 @@
   }
 
   var analyze = function(specs) {
-    /*
+    //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
+    //console.log('base ship', specs['/pa/units/sea/base_ship/base_ship.json'])
     Object.keys(last_unit_specs).forEach(function(id) {
-      console.log(digest(id, specs))
+      var d = digest(id, specs)
+      if (JSON.stringify(d) != JSON.stringify(last_unit_specs[id])) {
+        console.log(d, last_unit_specs[id])
+      } else {
+        console.log('match', id)
+      }
     })
-    */
 
+    /*
     console.log('baboom', specs['/pa/units/land/baboom/baboom.json'])
     console.log('last bomb', last_unit_specs['/pa/units/land/bot_bomb/bot_bomb.json'])
     var id = '/pa/units/land/baboom/baboom.json'
     last_unit_specs[id] = digest(id, specs)
+    */
 
     //handlers.unit_specs(JSON.parse(JSON.stringify(last_unit_specs)))
   }
 
   var digest = function(id, specs) {
-    console.log(id, specs)
     var unit = specs[id]
-    console.log(unit)
-    var tool = specs[unit.tools[0].spec_id]
-    console.log(tool)
-    var ammo = specs[tool.ammo_id]
-    console.log(ammo)
+    var tool = unit && unit.tools && unit.tools[0] && specs[unit.tools[0].spec_id]
+    var ammo = tool && specs[tool.ammo_id]
+    unit.command_caps = unit.command_caps || []
     unit.consumption = unit.consumption || {}
+    unit.navigation = unit.navigation || {}
     unit.production = unit.production || {}
     unit.storage = unit.storage || {}
     var digested = {
+      ammo_capacity: tool && tool.ammo_capacity,
+      ammo_demand: tool && tool.ammo_demand,
+      ammo_per_shot: tool && tool.ammo_per_shot,
       commands: unit.command_caps.map(function(c) {return c.replace('ORDER_', '')}),
       consumption: {
         metal: unit.consumption.metal || 0,
@@ -62,10 +70,11 @@
         turn_in_place: !!unit.navigation.turn_in_place,
         turn_speed: unit.navigation.turn_speed / 57.29 //????
       },
-      consumption: {
+      production: {
         metal: unit.production.metal || 0,
         energy: unit.production.energy || 0,
       },
+      rate_of_fire: tool && tool.rate_of_fire || 0,
       storage: {
         metal: unit.storage.metal || 0,
         energy: unit.storage.energy || 0,
@@ -73,7 +82,12 @@
       structure: unit.unit_types.indexOf('UNITTYPE_Structure') != -1,
       titan: unit.unit_types.indexOf('UNITTYPE_Titan') != -1,
     }
-    console.log(digested)
+    Object.keys(digested).forEach(function(key) {
+      if (digested[key] === undefined) {
+        delete digested[key]
+      }
+    })
+    //console.log(digested)
     return digested
   }
 
