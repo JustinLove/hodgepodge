@@ -1,24 +1,34 @@
 (function() {
   console.log('unit specs')
 
-  var last_unit_specs
+  var config = require.s.contexts._.config
+  config.waitSeconds = 0
+  config.paths.hodgepodge = 'coui://ui/mods/hodgepodge'
+  config.paths.shared = 'coui://ui/main/game/galactic_war/shared/js'
 
-  var loadUnitSpecs = function() {
-    var def = $.Deferred()
-    requireGW(['shared/gw_specs'], function(loader) {
-      console.log('loaded', loader)
-      // [] is truthy but concatiates to strings as ''
-      loader.genUnitSpecs(Object.keys(last_unit_specs), []).then(function(specs) {
-        Object.keys(specs).forEach(function(id) {
-          specs[id] = flattenBaseSpecs(specs[id], specs, '')
-        })
-        //console.log('specs', specs)
-        def.resolve(specs)
-      })
-    })
+  window.last_unit_specs = null
 
-    return def.promise()
+  if (handlers.unit_specs) {
+    var base_unit_specs = handlers.unit_specs
+    handlers.unit_specs = function(payload) {
+      last_unit_specs = JSON.parse(JSON.stringify(payload))
+      console.log('page unit specs', last_unit_specs)
+
+      base_unit_specs(payload)
+    }
+  } else {
+    handlers.unit_specs = function(payload) {
+      last_unit_specs = JSON.parse(JSON.stringify(payload))
+      console.log('no native unit specs', last_unit_specs)
+    }
   }
+})()
+
+require([
+  'hodgepodge/spec_loader',
+  'hodgepodge/digest',
+], function(spec_loader, digest) {
+  "use strict";
 
   var analyze = function(specs) {
     //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
@@ -42,92 +52,7 @@
     //handlers.unit_specs(JSON.parse(JSON.stringify(last_unit_specs)))
   }
 
-  var digest = function(id, specs) {
-    var unit = specs[id]
-    var tool = unit && unit.tools && unit.tools[0] && specs[unit.tools[0].spec_id]
-    var ammo = tool && specs[tool.ammo_id]
-    unit.command_caps = unit.command_caps || []
-    unit.consumption = unit.consumption || {}
-    unit.navigation = unit.navigation || {}
-    unit.production = unit.production || {}
-    unit.storage = unit.storage || {}
-    var digested = {
-      ammo_capacity: tool && tool.ammo_capacity,
-      ammo_demand: tool && tool.ammo_demand,
-      ammo_per_shot: tool && tool.ammo_per_shot,
-      commands: unit.command_caps.map(function(c) {return c.replace('ORDER_', '')}),
-      consumption: {
-        metal: unit.consumption.metal || 0,
-        energy: unit.consumption.energy || 0,
-      },
-      cost: unit.build_metal_cost,
-      damage: ammo && ammo.damage || 0,
-      description: unit.description,
-      max_health: unit.max_health,
-      name: unit.display_name,
-      navigation: {
-        move_speed: unit.navigation.move_speed,
-        turn_in_place: !!unit.navigation.turn_in_place,
-        turn_speed: unit.navigation.turn_speed / 57.29 //????
-      },
-      production: {
-        metal: unit.production.metal || 0,
-        energy: unit.production.energy || 0,
-      },
-      rate_of_fire: tool && tool.rate_of_fire || 0,
-      storage: {
-        metal: unit.storage.metal || 0,
-        energy: unit.storage.energy || 0,
-      },
-      structure: unit.unit_types.indexOf('UNITTYPE_Structure') != -1,
-      titan: unit.unit_types.indexOf('UNITTYPE_Titan') != -1,
-    }
-    Object.keys(digested).forEach(function(key) {
-      if (digested[key] === undefined) {
-        delete digested[key]
-      }
-    })
-    //console.log(digested)
-    return digested
+  if (last_unit_specs) {
+    spec_loader.load(Object.keys(last_unit_specs)).then(analyze)
   }
-
-  function flattenBaseSpecs(spec, specs, tag) {
-    if (!spec.hasOwnProperty('base_spec'))
-      return spec;
-
-    var base = specs[spec.base_spec];
-    if (!base) {
-      base = specs[spec.base_spec + tag];
-      if (!base)
-        return spec;
-    }
-
-    spec = _.cloneDeep(spec);
-    delete spec.base_spec;
-
-    base = flattenBaseSpecs(base, specs, tag);
-
-    return _.merge({}, base, spec);
-  }
-
-  if (handlers.unit_specs) {
-    var base_unit_specs = handlers.unit_specs
-    handlers.unit_specs = function(payload) {
-      if (!last_unit_specs) {
-        loadUnitSpecs().then(analyze)
-      }
-      last_unit_specs = JSON.parse(JSON.stringify(payload))
-      console.log('page unit specs', last_unit_specs)
-      base_unit_specs(payload)
-    }
-  } else {
-    handlers.unit_specs = function(payload) {
-      if (!last_unit_specs) {
-        loadUnitSpecs().then(analyze)
-      }
-      last_unit_specs = JSON.parse(JSON.stringify(payload))
-      console.log('no native unit specs', last_unit_specs)
-    }
-  }
-
 })()
