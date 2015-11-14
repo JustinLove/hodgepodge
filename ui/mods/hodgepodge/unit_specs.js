@@ -8,6 +8,7 @@
   config.paths.shared = 'coui://ui/main/game/galactic_war/shared/js'
 
   window.last_unit_specs = null
+  window.orderedIds = null
 
   if (handlers.unit_specs) {
     var base_unit_specs = handlers.unit_specs
@@ -28,40 +29,25 @@
 require([
   'hodgepodge/spec_loader',
   'hodgepodge/digest',
-  'dev/jsondiff',
-], function(spec_loader, digest, jsondiff) {
+  'dev/compare',
+], function(spec_loader, digest, compare) {
   "use strict";
 
-  var analyze = function(specs) {
-    var start = Date.now()
-    //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
-    //console.log('base ship', specs['/pa/units/sea/base_ship/base_ship.json'])
-    Object.keys(last_unit_specs).forEach(function(id) {
-    //['/pa/units/land/bot_nanoswarm/bot_nanoswarm.json'].forEach(function(id) {
-      var d = digest(id, orderedIds, specs)
-      var diff = jsondiff.diff(d, last_unit_specs[id])
-      if (diff) {
-        //var keys = Object.keys(diff)
-        //if (keys.length == 1 && keys[0] == 'build') return
-        console.log(id, diff)
-        console.log(d, last_unit_specs[id])//, specs[id])
-      }
+  var extras = HodgePodge.customUnits.map(function(unit) {
+    return unit.spec_id
+  })
+
+  var digestAll = function(specs) {
+    var digests = {}
+    var ids = _.uniq(Object.keys(last_unit_specs).concat(extras))
+    ids.forEach(function(id) {
+      digests[id] = digest(id, orderedIds, specs)
     })
-    console.log('done', Date.now() - start)
-
-    /*
-    console.log('baboom', specs['/pa/units/land/baboom/baboom.json'])
-    console.log('last bomb', last_unit_specs['/pa/units/land/bot_bomb/bot_bomb.json'])
-    var id = '/pa/units/land/baboom/baboom.json'
-    last_unit_specs[id] = digest(id, specs)
-    */
-
-    //handlers.unit_specs(JSON.parse(JSON.stringify(last_unit_specs)))
+    handlers.unit_specs(digests)
   }
 
-  var orderedIds
   spec_loader.loadOrderedUnitList().then(function(ids) {
-    orderedIds = _.uniq(ids)
-    spec_loader.loadUnitSpecs(ids).then(analyze)
+    orderedIds = _.uniq(ids.concat(extras))
+    spec_loader.loadUnitSpecs(orderedIds).then(compare)
   })
 })

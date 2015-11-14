@@ -64,7 +64,7 @@ define(['hodgepodge/buildable'], function(buildable) {
     unit.consumption = unit.consumption || {}
     unit.production = unit.production || {}
     unit.storage = unit.storage || {}
-    // mainly for CmdBuild
+    // cache is mainly for CmdBuild
     if (unit.buildable_types && !buildCache[unit.buildable_types]) {
       buildCache[unit.buildable_types] = buildable(unit.buildable_types, ids, specs)
     }
