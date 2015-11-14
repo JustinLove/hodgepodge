@@ -35,15 +35,15 @@ require([
   var analyze = function(specs) {
     //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
     //console.log('base ship', specs['/pa/units/sea/base_ship/base_ship.json'])
-    Object.keys(last_unit_specs).forEach(function(id) {
-    //['/pa/units/air/support_platform/support_platform.json'].forEach(function(id) {
+    //Object.keys(last_unit_specs).forEach(function(id) {
+    ['/pa/units/sea/naval_factory/naval_factory.json'].forEach(function(id) {
       var d = digest(id, specs)
       var diff = jsondiff.diff(d, last_unit_specs[id])
       if (diff) {
         //var keys = Object.keys(diff)
         //if (keys.length == 1 && keys[0] == 'build') return
         console.log(id, diff)
-        //console.log(d, last_unit_specs[id])//, specs[id])
+        console.log(d, last_unit_specs[id])//, specs[id])
       }
     })
 

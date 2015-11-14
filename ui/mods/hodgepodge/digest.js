@@ -1,4 +1,4 @@
-define([], function() {
+define(['hodgepodge/buildable'], function(buildable) {
   "use strict"
 
   var commandOrder = [
@@ -66,6 +66,7 @@ define([], function() {
       ammo_capacity: magazine && magazine.ammo_capacity,
       ammo_demand: magazine && magazine.ammo_demand,
       ammo_per_shot: magazine && magazine.ammo_per_shot,
+      build: unit.buildable_types && buildable(specs, unit.buildable_types),
       build_arm: build_arm && build_arm.construction_demand,
       commands: fixupCommands(unit.command_caps),
       consumption: {
