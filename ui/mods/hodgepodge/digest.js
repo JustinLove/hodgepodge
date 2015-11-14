@@ -66,7 +66,7 @@ define(['hodgepodge/buildable'], function(buildable) {
       ammo_capacity: magazine && magazine.ammo_capacity,
       ammo_demand: magazine && magazine.ammo_demand,
       ammo_per_shot: magazine && magazine.ammo_per_shot,
-      build: unit.buildable_types && buildable(unit.buildable_types, ids, specs),
+      build: unit.buildable_types ? buildable(unit.buildable_types, ids, specs) : undefined,
       build_arm: build_arm && build_arm.construction_demand,
       commands: fixupCommands(unit.command_caps),
       consumption: {

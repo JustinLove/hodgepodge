@@ -1,5 +1,6 @@
 define([], function() {
   return function(filter, ids, specs) {
+    //console.log(filter)
     filter = filter.replace(/\|/g, " | ");
     filter = filter.replace(/\&/g, " & ");
     filter = filter.replace(/\(/g, " ( ");
@@ -13,7 +14,7 @@ define([], function() {
        && filterTokens[i] != "&"
        && filterTokens[i] != "-"
        && filterTokens[i] != "") {
-        filterTokens[i] = "$.inArray('UNITTYPE_" + filterTokens[i] + "', currentUnitTypes) > -1";
+        filterTokens[i] = "($.inArray('UNITTYPE_" + filterTokens[i] + "', currentUnitTypes) > -1)";
       }
 
       if (filterTokens[i] == "-") {
@@ -21,6 +22,7 @@ define([], function() {
       }
     }
     filterString = filterTokens.join("");
+    //console.log(filterString)
     return ids.filter(function(id) { 
       var currentUnitTypes = specs[id].unit_types;
       return currentUnitTypes && eval(filterString);

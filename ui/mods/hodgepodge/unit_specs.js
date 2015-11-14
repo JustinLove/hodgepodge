@@ -36,7 +36,7 @@ require([
     //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
     //console.log('base ship', specs['/pa/units/sea/base_ship/base_ship.json'])
     Object.keys(last_unit_specs).forEach(function(id) {
-    //['/pa/units/sea/naval_factory/naval_factory.json'].forEach(function(id) {
+    //['/pa/units/land/bot_nanoswarm/bot_nanoswarm.json'].forEach(function(id) {
       var d = digest(id, orderedIds, specs)
       var diff = jsondiff.diff(d, last_unit_specs[id])
       if (diff) {
@@ -46,6 +46,7 @@ require([
         console.log(d, last_unit_specs[id])//, specs[id])
       }
     })
+    console.log('done')
 
     /*
     console.log('baboom', specs['/pa/units/land/baboom/baboom.json'])
