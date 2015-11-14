@@ -35,9 +35,9 @@ require([
   var analyze = function(specs) {
     //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
     //console.log('base ship', specs['/pa/units/sea/base_ship/base_ship.json'])
-    //Object.keys(last_unit_specs).forEach(function(id) {
-    ['/pa/units/sea/naval_factory/naval_factory.json'].forEach(function(id) {
-      var d = digest(id, specs)
+    Object.keys(last_unit_specs).forEach(function(id) {
+    //['/pa/units/sea/naval_factory/naval_factory.json'].forEach(function(id) {
+      var d = digest(id, orderedIds, specs)
       var diff = jsondiff.diff(d, last_unit_specs[id])
       if (diff) {
         //var keys = Object.keys(diff)
@@ -57,7 +57,9 @@ require([
     //handlers.unit_specs(JSON.parse(JSON.stringify(last_unit_specs)))
   }
 
-  if (last_unit_specs) {
-    spec_loader.load(Object.keys(last_unit_specs)).then(analyze)
-  }
+  var orderedIds
+  spec_loader.loadOrderedUnitList().then(function(ids) {
+    orderedIds = _.uniq(ids)
+    spec_loader.loadUnitSpecs(ids).then(analyze)
+  })
 })

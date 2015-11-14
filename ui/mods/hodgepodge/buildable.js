@@ -1,5 +1,5 @@
 define([], function() {
-  return function(specs, filter) {
+  return function(filter, ids, specs) {
     filter = filter.replace(/\|/g, " | ");
     filter = filter.replace(/\&/g, " & ");
     filter = filter.replace(/\(/g, " ( ");
@@ -21,7 +21,7 @@ define([], function() {
       }
     }
     filterString = filterTokens.join("");
-    return Object.keys(specs).filter(function(id) { 
+    return ids.filter(function(id) { 
       var currentUnitTypes = specs[id].unit_types;
       return currentUnitTypes && eval(filterString);
     });

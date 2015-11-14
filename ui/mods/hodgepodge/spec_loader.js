@@ -1,4 +1,10 @@
 define(['shared/gw_specs'], function(loader) {
+  var loadOrderedUnitList = function() {
+    return $.getJSON("coui://pa/units/unit_list.json").then(function(list) {
+      return list.units
+    })
+  }
+
   var loadUnitSpecs = function(specIds) {
     var def = $.Deferred()
     // [] is truthy but concatiates to strings as ''
@@ -41,7 +47,8 @@ define(['shared/gw_specs'], function(loader) {
   }
 
   return {
-    load: loadUnitSpecs,
+    loadOrderedUnitList: loadOrderedUnitList,
+    loadUnitSpecs: loadUnitSpecs,
     flattenBaseSpecs: flattenBaseSpecs,
   }
 })
