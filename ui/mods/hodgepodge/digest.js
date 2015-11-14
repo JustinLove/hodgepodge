@@ -28,6 +28,8 @@ define(['hodgepodge/buildable'], function(buildable) {
     return commands
   }
 
+  var buildCache = {}
+
   return function digest(id, ids, specs) {
     var unit = specs[id]
     var weapon
@@ -62,11 +64,15 @@ define(['hodgepodge/buildable'], function(buildable) {
     unit.consumption = unit.consumption || {}
     unit.production = unit.production || {}
     unit.storage = unit.storage || {}
+    // mainly for CmdBuild
+    if (unit.buildable_types && !buildCache[unit.buildable_types]) {
+      buildCache[unit.buildable_types] = buildable(unit.buildable_types, ids, specs)
+    }
     var digested = {
       ammo_capacity: magazine && magazine.ammo_capacity,
       ammo_demand: magazine && magazine.ammo_demand,
       ammo_per_shot: magazine && magazine.ammo_per_shot,
-      build: unit.buildable_types ? buildable(unit.buildable_types, ids, specs) : undefined,
+      build: buildCache[unit.buildable_types],
       build_arm: build_arm && build_arm.construction_demand,
       commands: fixupCommands(unit.command_caps),
       consumption: {
