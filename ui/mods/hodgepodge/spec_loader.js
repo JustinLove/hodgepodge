@@ -1,11 +1,11 @@
 define(['shared/gw_specs'], function(loader) {
-  var loadOrderedUnitList = function() {
+  var loadOrderedUnitList = function loadOrderedUnitList() {
     return $.getJSON("coui://pa/units/unit_list.json").then(function(list) {
       return list.units
     })
   }
 
-  var loadUnitSpecs = function(specIds) {
+  var loadUnitSpecs = function loadUnitSpecs(specIds) {
     var def = $.Deferred()
     // [] is truthy but concatiates to strings as ''
     loader.genUnitSpecs(specIds, []).then(function(specs) {
@@ -38,7 +38,7 @@ define(['shared/gw_specs'], function(loader) {
     return _.merge({}, base, spec, customMerge);
   }
 
-  var customMerge = function(objectValue, sourceValue, key, object, source) {
+  var customMerge = function customMerge(objectValue, sourceValue, key, object, source) {
     if (Array.isArray(sourceValue)) {
       return sourceValue
     } else {

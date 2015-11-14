@@ -17,7 +17,7 @@ define(['hodgepodge/buildable'], function(buildable) {
     "FireSecondaryWeapon",
   ]
 
-  var fixupCommands = function(command_caps) {
+  var fixupCommands = function fixupCommands(command_caps) {
     var commands = command_caps.map(function(c) {
       return c.replace('ORDER_', '')
     }),
@@ -28,7 +28,7 @@ define(['hodgepodge/buildable'], function(buildable) {
     return commands
   }
 
-  return function(id, ids, specs) {
+  return function digest(id, ids, specs) {
     var unit = specs[id]
     var weapon
     var magazine

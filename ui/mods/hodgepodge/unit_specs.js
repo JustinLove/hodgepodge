@@ -33,6 +33,7 @@ require([
   "use strict";
 
   var analyze = function(specs) {
+    var start = Date.now()
     //console.log('hover ship', specs['/pa/units/sea/hover_ship/hover_ship.json'])
     //console.log('base ship', specs['/pa/units/sea/base_ship/base_ship.json'])
     Object.keys(last_unit_specs).forEach(function(id) {
@@ -46,7 +47,7 @@ require([
         console.log(d, last_unit_specs[id])//, specs[id])
       }
     })
-    console.log('done')
+    console.log('done', Date.now() - start)
 
     /*
     console.log('baboom', specs['/pa/units/land/baboom/baboom.json'])
