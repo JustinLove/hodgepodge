@@ -2,12 +2,6 @@
   "use strict";
 
   console.log('build')
-  /*
-  HodgePodge.addUnits([{
-    spec_id: '/pa/units/land/baboom/baboom.json',
-    preferred_builds: [['bot', 1]],
-  }])
-  */
 
   if (window.Build) {
     var source = Build.HotkeyModel.toString()
