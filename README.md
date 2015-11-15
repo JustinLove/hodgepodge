@@ -6,7 +6,7 @@ Three great beasts bar the way:
 
 - Unable to update strategic icons: Wounded. Icon Reloader can refresh previously known icon ids.
 - Build bar is defined statically in the UI: Dying. HodgePodge has a proof of concept for incremental additions, but is still jamming units into fixed locations without regard for previous occupants. It has to monkey punch the `unit_specs` handling and may eventually need a complete javascript shadow to offer full functionality.
-- `unit_list.json`: Dead. HodgePodge reimpliments `unit_specs` digests from scratch. Buildable lists based on code by Raevn
+- `unit_list.json`: Scratched; still a blocking issue. HodgePodge reimpliments `unit_specs` digests from scratch; this allows units to appear in the the correct buildable lists, but the server does not accept build commands for new units. Buildable lists based on code by Raevn
 
 ## Making Piecemeal Units Mods
 
@@ -38,7 +38,6 @@ Add the mod file named above with something like this. Avoid preferred builds us
 Things **not** to do:
 
 - Shadow `build.js`
-- Shadow `unit_list.json`
 
 ## Game Bugs
 

@@ -1,10 +1,10 @@
 {
   "author": "wondible",
-  "build": "89528",
+  "build": "89755",
   "category": ["units", "framework"],
   "context": "client",
-  "date": "2015/10/28",
-  "description": "Allow mixing server mods, especially single-units",
+  "date": "2015/11/14",
+  "description": "Allow mixing compatible server mods, especially single-units",
   "display_name": "HodgePodge",
   "forum": null,
   "identifier": "com.wondible.pa.hodgepodge",
@@ -21,15 +21,11 @@
       "coui://ui/mods/hodgepodge/unit_specs.js",
       "coui://ui/mods/hodgepodge/build.js"
     ],
-    "live_game_action_bar": [
-      "coui://ui/mods/hodgepodge/unit_specs.js"
-    ],
     "live_game_build_bar": [
-      "coui://ui/mods/hodgepodge/unit_specs.js",
+      "coui://ui/mods/hodgepodge/live_game_build_bar.js",
       "coui://ui/mods/hodgepodge/build.js"
     ],
     "live_game_sandbox": [
-      "coui://ui/mods/hodgepodge/unit_specs.js",
       "coui://ui/mods/hodgepodge/build.js"
     ],
     "live_game_selection": [
