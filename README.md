@@ -1,6 +1,6 @@
 # HodgePodge
 
-Manages adding units to the build bar.
+Support framework for server mods which manages adding units to the build bar
 
 Three great beasts bar the way to composable server mods:
 
