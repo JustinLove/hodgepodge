@@ -6,7 +6,7 @@
   "date": "2015/11/16",
   "description": "Support framework for server mods which manages adding units to the build bar.",
   "display_name": "HodgePodge",
-  "forum": null,
+  "forum": "https://forums.uberent.com/threads/rel-server-hodgepodge.70940/",
   "identifier": "com.wondible.pa.hodgepodge",
   "priority": 50,
   "comment": "build in sandbox is a nod to Sandbox Unit Organizer",
