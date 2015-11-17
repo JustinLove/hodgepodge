@@ -28,7 +28,7 @@
 
   // pass: assign requested slot
   unassignedUnits = unassignedUnits.filter(function(unit) {
-    //unit.preferred_builds = [['vehicle', 1]]
+    //unit.preferred_builds = [['vehicle', 6]]
     var open = unit.preferred_builds.filter(available)
     if (open.length > 0) {
       unit.assigned_build = open[0]
@@ -39,6 +39,7 @@
     return true
   })
 
+  // pass: assign an empty slot on the same row
   var buildsOnRow = function(build) {
     var tab = build[0]
     var row = Math.floor(build[1] / 6) * 6
@@ -49,10 +50,32 @@
     return slots
   }
 
-  // pass: assign an empty slot on the same row
   unassignedUnits = unassignedUnits.filter(function(unit) {
     for (var b in unit.preferred_builds) {
       var open = buildsOnRow(unit.preferred_builds[b]).filter(available)
+      if (open.length > 0) {
+        unit.assigned_build = open[0]
+        assign(open[0], unit.spec_id)
+        return false
+      }
+    }
+
+    return true
+  })
+
+  // pass: assign to any empty slot in a desired tab
+  var buildsInTab = function(build) {
+    var tab = build[0]
+    var slots = []
+    for (var i = 0;i < 18;i++) {
+      slots.push([tab, i])
+    }
+    return slots
+  }
+
+  unassignedUnits = unassignedUnits.filter(function(unit) {
+    for (var b in unit.preferred_builds) {
+      var open = buildsInTab(unit.preferred_builds[b]).filter(available)
       if (open.length > 0) {
         unit.assigned_build = open[0]
         assign(open[0], unit.spec_id)
