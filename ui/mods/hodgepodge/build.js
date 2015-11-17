@@ -3,7 +3,6 @@
 
   console.log('build')
 
-
   if (!window.Build) return
 
   var assigned = {}
@@ -47,7 +46,6 @@
 
   // pass: assign requested slot
   unassignedUnits = unassignedUnits.filter(function(unit) {
-    //unit.preferred_builds = [['vehicle', 6]]
     var open = unit.preferred_builds.filter(available)
     if (open.length > 0) {
       unit.assigned_build = open[0]
@@ -126,7 +124,6 @@
     var build = model.buildHotkeyModel.SpecIdToGridMap()
     HodgePodge.customUnits.forEach(function(unit) {
       build[unit.spec_id] = unit.assigned_build
-      //console.log(build[unit.spec_id])
     })
     model.buildHotkeyModel.SpecIdToGridMap.notifySubscribers()
   }
