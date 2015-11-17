@@ -24,18 +24,47 @@
     assign(stockbuild[id], id)
   })
 
-  // pass: assign request slot
-  HodgePodge.customUnits.forEach(function(unit) {
+  var unassignedUnits = HodgePodge.customUnits
+
+  // pass: assign requested slot
+  unassignedUnits = unassignedUnits.filter(function(unit) {
     //unit.preferred_builds = [['vehicle', 1]]
     var open = unit.preferred_builds.filter(available)
     if (open.length > 0) {
       unit.assigned_build = open[0]
       assign(open[0], unit.spec_id)
+      return false
     }
+
+    return true
   })
+
+  var buildsOnRow = function(build) {
+    var tab = build[0]
+    var row = Math.floor(build[1] / 6) * 6
+    var slots = []
+    for (var i = row;i < row + 6;i++) {
+      slots.push([tab, i])
+    }
+    return slots
+  }
+
+  // pass: assign an empty slot on the same row
+  unassignedUnits = unassignedUnits.filter(function(unit) {
+    for (var b in unit.preferred_builds) {
+      var open = buildsOnRow(unit.preferred_builds[b]).filter(available)
+      if (open.length > 0) {
+        unit.assigned_build = open[0]
+        assign(open[0], unit.spec_id)
+        return false
+      }
+    }
+
+    return true
+  })
+
   // pass: punt into extra tab
-  HodgePodge.customUnits.forEach(function(unit, i) {
-    if (unit.assigned_build) return
+  unassignedUnits.forEach(function(unit, i) {
     var tab = build[0]
     unit.assigned_build = ['extra', i]
     assign(['extra', i], unit.spec_id)
