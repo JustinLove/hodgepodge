@@ -2,8 +2,8 @@
   "author": "wondible",
   "build": "89755",
   "category": ["units", "framework"],
-  "context": "client",
-  "date": "2015/11/17",
+  "context": "server",
+  "date": "2015/11/18",
   "description": "Support framework for server mods which manages adding units to the build bar.",
   "display_name": "HodgePodge",
   "forum": "https://forums.uberent.com/threads/rel-server-hodgepodge.70940/",
@@ -34,6 +34,5 @@
     ]
   },
   "signature": "not yet implemented",
-  "version": "0.2.0"
+  "version": "0.2.1"
 }
-
