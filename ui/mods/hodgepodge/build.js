@@ -42,7 +42,9 @@
     return slots
   }
 
-  var unassignedUnits = HodgePodge.customUnits
+  var unassignedUnits = HodgePodge.customUnits.filter(function(unit) {
+    return Array.isArray(unit.preferred_builds)
+  })
 
   // pass: assign requested slot
   unassignedUnits = unassignedUnits.filter(function(unit) {
@@ -115,15 +117,19 @@
 
   var source = Build.HotkeyModel.toString()
   HodgePodge.customUnits.forEach(function(unit) {
-    var item = '"' + unit.spec_id + '": ' + JSON.stringify(unit.assigned_build)
-    source = source.replace(/\](\r\n\s+)/, '],$1    ' + item + '$1')
+    if (unit.assigned_build) {
+      var item = '"' + unit.spec_id + '": ' + JSON.stringify(unit.assigned_build)
+      source = source.replace(/\](\r\n\s+)/, '],$1    ' + item + '$1')
+    }
   })
   Build.HotkeyModel = eval('(' + source + ')')
 
   if (model.buildHotkeyModel) {
     var build = model.buildHotkeyModel.SpecIdToGridMap()
     HodgePodge.customUnits.forEach(function(unit) {
-      build[unit.spec_id] = unit.assigned_build
+      if (unit.assigned_build) {
+        build[unit.spec_id] = unit.assigned_build
+      }
     })
     model.buildHotkeyModel.SpecIdToGridMap.notifySubscribers()
   }
