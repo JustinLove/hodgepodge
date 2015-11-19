@@ -4,13 +4,13 @@ Support framework for server mods which manages adding units to the build bar
 
 Three great beasts bar the way to composable server mods:
 
-- Unable to update strategic icons: Wounded. Icon Reloader can refresh previously known icon ids.
+- Unable to update strategic icons: Wounded. Icon Reloader can refresh previously known icon ids and replace a limited number of unused icon ids.
 - Build bar is defined statically in the UI: Mostly Dead. HodgePodge manages assigning units to open build bar positions. So far it's managed to do this without file shadows.
 - `unit_list.json`: Scratched; still a blocking issue.
 
 ## Making Piecemeal Units Mods (not really)
 
-Pick one of the unused strategic icons and shadow it. Add `"si_name": "thenameyoushadowed"` to your unit json. Try to avoid one used by other piecemeal mods (this should get a *little* better)
+Using custom strategic icons depends the Icon Reloader mod, however HodgePodge manages the integration based on the information you give it.
 
 Add dependencies and a global scene mod to your modinfo.json
 
@@ -30,6 +30,7 @@ Add the mod file named above with something like this.
       HodgePodge.addUnits([
         {
           spec_id: '/pa/units/land/baboom/baboom.json',
+          si_name: 'fred', // optional: only needed if the unit has this property
           preferred_builds: [['bot', 1]],
         },
       ])
