@@ -39,7 +39,7 @@ Add the mod file named above with something like this.
 Preferred builds are assigned in a series of passes:
 
 for each pass
-  for each customUnits
+  for each addedUnits
     for each preferred_builds
 
 Passes: 

@@ -1,7 +1,7 @@
 (function() {
   console.log('hodgepodge icons', !!atlasMessage)
   if (atlasMessage) {
-    var icons = _.compact(HodgePodge.customUnits.map(function(unit) {
+    var icons = _.compact(HodgePodge.addedUnits.map(function(unit) {
       return unit.si_name || unit.spec_id.match(/\/(\w+).json/)[1]
     }))
     if (icons.length > 0) {

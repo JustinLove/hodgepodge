@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 0.4.0
+
+- First pass at removing units from build bar.
+
 ## 0.3.0
 
 - Drives Icon Reloader id replacement.

@@ -1,11 +1,17 @@
 (function() {
   window.HodgePodge = {
-    customUnits: [],
+    addedUnits: [],
+    removedUnits: [],
     addUnits: function(units) {
       units.forEach(function(unit) {
-        HodgePodge.customUnits.push(unit)
+        HodgePodge.addedUnits.push(unit)
       })
-    }
+    },
+    removeUnits: function(units) {
+      units.forEach(function(unit) {
+        HodgePodge.removedUnits.push(unit)
+      })
+    },
   }
 
   // this mod is early priority, so icon reloader won't be loaded
