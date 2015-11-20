@@ -34,6 +34,9 @@ Add the mod file named above with something like this.
           preferred_builds: [['bot', 1]],
         },
       ])
+
+      //HodgePodge.removeUnits is also supported with similar arguments
+      // though preferred_builds is not used
     }
 
 Preferred builds are assigned in a series of passes:
