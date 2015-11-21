@@ -37,6 +37,8 @@ Add the mod file named above with something like this.
 
       //HodgePodge.removeUnits is also supported with similar arguments
       // though preferred_builds is not used
+
+      // `si_name: null` to turn off Icon Reloader integration
     }
 
 Preferred builds are assigned in a series of passes. Roughly, all first choices are assigned before any second choices, and a unit will get a slot on the tab of it's first choice before any later ones are considered.
