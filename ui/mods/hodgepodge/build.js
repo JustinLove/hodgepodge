@@ -8,6 +8,7 @@
   var assigned = {}
 
   var available = function(build) {
+    if (!build) return false
     var tab = build[0]
     return !(assigned[tab] && assigned[tab][build[1]])
   }
@@ -28,6 +29,7 @@
   })
 
   var buildsOnRow = function(build) {
+    if (!build) return []
     var tab = build[0]
     var row = Math.floor(build[1] / 6) * 6
     var slots = []
@@ -38,6 +40,7 @@
   }
 
   var buildsInTab = function(build) {
+    if (!build) return []
     var tab = build[0]
     var slots = []
     for (var i = 0;i < 18;i++) {
@@ -50,65 +53,14 @@
     return Array.isArray(unit.preferred_builds)
   })
 
-  // pass: assign requested slot
-  unassignedUnits = unassignedUnits.filter(function(unit) {
-    var open = unit.preferred_builds.filter(available)
-    if (open.length > 0) {
-      unit.assigned_build = open[0]
-      assign(open[0], unit.spec_id)
-      return false
-    }
-
-    return true
+  var preferredLengths = unassignedUnits.map(function(unit) {
+    return unit.preferred_builds.length
   })
+  var maximumBuilds = Math.max.apply(Math, preferredLengths)
 
-  // pass: assign an empty slot on the same row
-  unassignedUnits = unassignedUnits.filter(function(unit) {
-    for (var b in unit.preferred_builds) {
-      var open = buildsOnRow(unit.preferred_builds[b]).filter(available)
-      if (open.length > 0) {
-        unit.assigned_build = open[0]
-        assign(open[0], unit.spec_id)
-        return false
-      }
-    }
-
-    return true
-  })
-
-  // pass: assign to any empty slot in a desired tab
-  unassignedUnits = unassignedUnits.filter(function(unit) {
-    for (var b in unit.preferred_builds) {
-      var open = buildsInTab(unit.preferred_builds[b]).filter(available)
-      if (open.length > 0) {
-        unit.assigned_build = open[0]
-        assign(open[0], unit.spec_id)
-        return false
-      }
-    }
-
-    return true
-  })
-
-  // pass: punt into ammo tab
-  unassignedUnits = unassignedUnits.filter(function(unit) {
-    var open = buildsInTab(['ammo', 0]).filter(available)
-    if (open.length > 0) {
-      unit.assigned_build = open[0]
-      assign(open[0], unit.spec_id)
-      return false
-    }
-
-    return true
-  })
-
-  // pass: punt into extra tab
-  var n = 0
-  while (unassignedUnits.length > 0) {
-    var tab = 'extra' + n
-    n = n + 1
+  var pass = function(candidates) {
     unassignedUnits = unassignedUnits.filter(function(unit) {
-      var open = buildsInTab([tab, 0]).filter(available)
+      var open = candidates(unit).filter(available)
       if (open.length > 0) {
         unit.assigned_build = open[0]
         assign(open[0], unit.spec_id)
@@ -117,6 +69,28 @@
 
       return true
     })
+  }
+
+  for (var b = 0;b < maximumBuilds;b++) {
+    // pass: assign requested slot
+    pass(function(unit) {return [unit.preferred_builds[b]]})
+
+    // pass: assign an empty slot on the same row
+    pass(function(unit) {return buildsOnRow(unit.preferred_builds[b])})
+
+    // pass: assign to any empty slot in a desired tab
+    pass(function(unit) {return buildsInTab(unit.preferred_builds[b])})
+  }
+
+  // pass: punt into ammo tab
+  pass(function(unit) {return buildsInTab(['ammo', 0])})
+
+  // pass: punt into extra tab
+  var n = 0
+  while (unassignedUnits.length > 0) {
+    var tab = 'extra' + n
+    n = n + 1
+    pass(function(unit) {return buildsInTab([tab, 0])})
   }
 
   var source = Build.HotkeyModel.toString()

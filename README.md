@@ -39,15 +39,15 @@ Add the mod file named above with something like this.
       // though preferred_builds is not used
     }
 
-Preferred builds are assigned in a series of passes:
+Preferred builds are assigned in a series of passes. Roughly, all first choices are assigned before any second choices, and a unit will get a slot on the tab of it's first choice before any later ones are considered.
 
-for each pass
-  for each addedUnits
     for each preferred_builds
+      for each pass
+        for each addedUnits
 
 Passes: 
 
-1. The listed slots
+1. The listed slot
 2. The same row as a listed slot
 3. The same tab as a listed slot
 4. Dump the rest into ammo tab
