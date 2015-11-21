@@ -4,6 +4,7 @@
 
 - First pass at removing units from build bar.
 - Reworked build bar allocation; units will get a slot on the tab of their first preferred build before considering later choices
+- Tab level allocations run bottom-up
 
 ## 0.3.0
 

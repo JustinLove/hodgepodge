@@ -43,8 +43,10 @@
     if (!build) return []
     var tab = build[0]
     var slots = []
-    for (var i = 0;i < 18;i++) {
-      slots.push([tab, i])
+    for (var row = 12;row >= 0;row -= 6) {
+      for (var i = row;i < row + 6;i++) {
+        slots.push([tab, i])
+      }
     }
     return slots
   }
