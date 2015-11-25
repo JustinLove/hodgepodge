@@ -1,9 +1,42 @@
 (function() {
   "use strict";
 
-  console.log('build')
-
   if (!window.Build) return
+
+  if (api.content.usingTitans()) {
+    console.log('HodgePodge build, removing deep space')
+
+    HodgePodge.removedUnits.unshift(
+      {spec_id: "/pa/units/orbital/deep_space_radar/deep_space_radar.json"})
+  } else {
+    console.log('HodgePodge build, removing titans')
+    ;[
+      "/pa/units/air/bomber_heavy/bomber_heavy.json",
+      "/pa/units/air/solar_drone/solar_drone.json",
+      "/pa/units/air/support_platform/support_platform.json",
+      "/pa/units/air/titan_air/titan_air.json",
+      "/pa/units/land/artillery_unit_launcher/artillery_unit_launcher.json",
+      "/pa/units/land/bot_nanoswarm/bot_nanoswarm.json",
+      "/pa/units/land/bot_support_commander/bot_support_commander.json",
+      "/pa/units/land/bot_tesla/bot_tesla.json",
+      "/pa/units/land/tank_flak/tank_flak.json",
+      "/pa/units/land/tank_hover/tank_hover.json",
+      "/pa/units/land/tank_nuke/tank_nuke.json",
+      "/pa/units/land/titan_bot/titan_bot.json",
+      "/pa/units/land/titan_structure/titan_structure.json",
+      "/pa/units/land/titan_vehicle/titan_vehicle.json",
+      "/pa/units/orbital/orbital_battleship/orbital_battleship.json",
+      "/pa/units/orbital/orbital_probe/orbital_probe.json",
+      "/pa/units/orbital/orbital_railgun/orbital_railgun.json",
+      "/pa/units/orbital/titan_orbital/titan_orbital.json",
+      "/pa/units/sea/drone_carrier/carrier/carrier.json",
+      "/pa/units/sea/drone_carrier/drone/drone.json",
+      "/pa/units/sea/fabrication_barge/fabrication_barge.json",
+      "/pa/units/sea/hover_ship/hover_ship.json",
+    ].forEach(function(id) {
+      HodgePodge.removedUnits.unshift({spec_id: id})
+    })
+  }
 
   var assigned = {}
 

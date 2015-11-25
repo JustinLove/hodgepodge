@@ -3,6 +3,7 @@
 ## 1.1.0
 
 - Add `si_fallback` property
+- Remove Deep Space Radar in Titans, and titans in Classic
 
 ## 1.0.0
 
