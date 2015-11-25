@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 1.1.0
+
+- Add `si_fallback` property
+
 ## 1.0.0
 
 - First pass at removing units from build bar.

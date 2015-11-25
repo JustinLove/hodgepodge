@@ -31,6 +31,7 @@ Add the mod file named above with something like this.
         {
           spec_id: '/pa/units/land/baboom/baboom.json',
           si_name: 'fred', // optional: only needed if the unit has this property
+          si_fallback: ['nuke_launcher_ammo', 'tank_nuke', 'bot_bomb'], // optional
           preferred_builds: [['bot', 1]],
         },
       ])
