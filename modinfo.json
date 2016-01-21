@@ -3,7 +3,7 @@
   "build": "89755",
   "category": ["units", "framework"],
   "context": "server",
-  "date": "2015/11/24",
+  "date": "2015/12/21",
   "description": "Support framework for server mods which manages adding units to the build bar.",
   "display_name": "HodgePodge",
   "forum": "https://forums.uberent.com/threads/rel-server-hodgepodge.70940/",
@@ -34,5 +34,5 @@
     ]
   },
   "signature": "not yet implemented",
-  "version": "1.1.0"
+  "version": "1.1.1"
 }

@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 1.1.1
+
+- Fix undefined symbol when not running with Icon Reloader
+
 ## 1.1.0
 
 - Add `si_fallback` property

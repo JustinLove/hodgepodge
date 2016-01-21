@@ -1,6 +1,6 @@
 (function() {
-  console.log('hodgepodge icons', !!atlasMessage)
-  if (atlasMessage) {
+  console.log('hodgepodge icons', !!window.atlasMessage)
+  if (window.atlasMessage) {
     var removed = _.compact(HodgePodge.removedUnits.map(function(unit) {
       if (unit.si_name === null) return null
       return unit.si_name || unit.spec_id.match(/\/(\w+).json/)[1]
