@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 1.1.2
+
+- Forgot to update mod date
+
 ## 1.1.1
 
 - Fix undefined symbol when not running with Icon Reloader
