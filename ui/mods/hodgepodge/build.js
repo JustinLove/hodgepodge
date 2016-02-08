@@ -128,31 +128,14 @@
     pass(function(unit) {return buildsInTab([tab, 0])})
   }
 
-  var source = Build.HotkeyModel.toString()
   HodgePodge.removedUnits.forEach(function(unit) {
-    var item = new RegExp('[ \\t]+"' + unit.spec_id + '":\\s*\\["\\w+",\\s*\\d+\\],\\r?\\n')
-    source = source.replace(item, '')
+    delete Build.HotkeyModel.SpecIdToGridMap[unit.spec_id]
   })
   HodgePodge.addedUnits.forEach(function(unit) {
     if (unit.assigned_build) {
-      var item = '"' + unit.spec_id + '": ' + JSON.stringify(unit.assigned_build)
-      source = source.replace(/\](\r?\n\s+)/, '],$1    ' + item + '$1')
+      Build.HotkeyModel.SpecIdToGridMap[unit.spec_id] = unit.assigned_build
     }
   })
-  Build.HotkeyModel = eval('(' + source + ')')
-
-  if (model.buildHotkeyModel) {
-    var build = model.buildHotkeyModel.SpecIdToGridMap()
-    HodgePodge.removedUnits.forEach(function(unit) {
-      delete build[unit.spec_id]
-    })
-    HodgePodge.addedUnits.forEach(function(unit) {
-      if (unit.assigned_build) {
-        build[unit.spec_id] = unit.assigned_build
-      }
-    })
-    model.buildHotkeyModel.SpecIdToGridMap.notifySubscribers()
-  }
 
   if (model.buildSet) {
     model.buildSet.subscribe(function(set) {
