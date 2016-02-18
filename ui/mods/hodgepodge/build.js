@@ -130,13 +130,13 @@
 
   var source = Build.HotkeyModel.toString()
   HodgePodge.removedUnits.forEach(function(unit) {
-    var item = new RegExp('[ \\t]+"' + unit.spec_id + '":\\s*\\["\\w+",\\s*\\d+\\],\\r\\n')
+    var item = new RegExp('[ \\t]+"' + unit.spec_id + '":\\s*\\["\\w+",\\s*\\d+\\],\\r?\\n')
     source = source.replace(item, '')
   })
   HodgePodge.addedUnits.forEach(function(unit) {
     if (unit.assigned_build) {
       var item = '"' + unit.spec_id + '": ' + JSON.stringify(unit.assigned_build)
-      source = source.replace(/\](\r\n\s+)/, '],$1    ' + item + '$1')
+      source = source.replace(/\](\r?\n\s+)/, '],$1    ' + item + '$1')
     }
   })
   Build.HotkeyModel = eval('(' + source + ')')

@@ -26,7 +26,7 @@ Add dependencies and a global scene mod to your modinfo.json
 
 Add the mod file named above with something like this.
 
-    if (HodgePodge) {
+    if (window.HodgePodge) {
       HodgePodge.addUnits([
         {
           spec_id: '/pa/units/land/baboom/baboom.json',
