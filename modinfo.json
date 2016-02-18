@@ -16,9 +16,6 @@
     ],
     "shared_build": [
       "coui://ui/mods/hodgepodge/build.js"
-    ],
-    "live_game": [
-      "coui://ui/mods/hodgepodge/icons.js"
     ]
   },
   "signature": "not yet implemented",
