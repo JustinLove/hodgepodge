@@ -16,6 +16,12 @@
     "shared_build": [
       "coui://ui/mods/hodgepodge/build.js"
     ],
+    "live_game": [
+      "coui://ui/mods/hodgepodge/model.js"
+    ],
+    "live_game_build_bar": [
+      "coui://ui/mods/hodgepodge/model.js"
+    ],
     "icon_atlas": [
       "coui://ui/mods/hodgepodge/icons.js"
     ]
