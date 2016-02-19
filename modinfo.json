@@ -9,13 +9,15 @@
   "forum": "https://forums.uberent.com/threads/rel-server-hodgepodge.70940/",
   "identifier": "com.wondible.pa.hodgepodge",
   "priority": 50,
-  "comment": "build in sandbox is a nod to Sandbox Unit Organizer",
   "scenes": {
     "global_mod_list": [
       "coui://ui/mods/hodgepodge/global.js"
     ],
     "shared_build": [
       "coui://ui/mods/hodgepodge/build.js"
+    ],
+    "icon_atlas": [
+      "coui://ui/mods/hodgepodge/icons.js"
     ]
   },
   "signature": "not yet implemented",
