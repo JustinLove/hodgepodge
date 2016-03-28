@@ -1,5 +1,13 @@
 # HodgePodge
 
+## 2.0.0 for > 89755
+
+- New property: `ammo_build_hover` for nuke missiles etc
+- `si_fallback` is no longer used
+- Now handles strategic icons internally instead of cooperating with Icon Reloader
+- Move most processing to `shared_build` scene
+- Replace regexp hack with master spec map editing
+
 ## 1.1.2
 
 - Forgot to update mod date
