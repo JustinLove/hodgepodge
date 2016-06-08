@@ -1,9 +1,9 @@
 {
   "author": "wondible",
-  "build": "89755-patch",
+  "build": "94684",
   "category": ["units", "framework", "titans"],
   "context": "server",
-  "date": "2016/03/27",
+  "date": "2016/07/08",
   "description": "Support framework for server mods which manages adding units to the build bar and strategic icons.",
   "display_name": "HodgePodge",
   "forum": "https://forums.uberent.com/threads/rel-server-hodgepodge.70940/",
@@ -27,5 +27,5 @@
     ]
   },
   "signature": "not yet implemented",
-  "version": "2.0.0"
+  "version": "2.0.1"
 }
