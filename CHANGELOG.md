@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 2.0.2
+
+- Fix typo in release date
+
 ## 2.0.1
 
 - Update build number
