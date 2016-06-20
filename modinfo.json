@@ -23,7 +23,7 @@
       "coui://ui/mods/hodgepodge/model.js"
     ],
     "icon_atlas": [
-      "coui://ui/mods/hodgepodge/icons.js"
+      "coui://ui/mods/hodgepodge/icon_atlas.js"
     ]
   },
   "signature": "not yet implemented",
