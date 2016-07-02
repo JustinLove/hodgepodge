@@ -1,5 +1,11 @@
 # HodgePodge
 
+
+## 2.1.0
+
+- `si_fallback` is supported again, this time internally
+- Enforces hard icon limit to try and prevent black-boxes
+
 ## 2.0.2
 
 - Fix typo in release date
