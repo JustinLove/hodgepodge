@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 2.2.0 for >= 112176
+
+- Remove icon limit and aliasing; the game crashes before any discoverable limit (between 12k and 15k on my system)
+- in particular, `si_fallback` is no longer implemented
 
 ## 2.1.0
 
