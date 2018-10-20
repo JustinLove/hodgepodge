@@ -2,7 +2,7 @@
   "author": "wondible",
   "build": "112176",
   "category": ["units", "titans"],
-  "context": "client",
+  "context": "server",
   "date": "2018/10/19",
   "description": "Support framework for server mods which manages adding units to the build bar and strategic icons.",
   "display_name": "HodgePodge",
@@ -28,5 +28,5 @@
     ]
   },
   "signature": "not yet implemented",
-  "version": "2.2.0"
+  "version": "2.2.1"
 }
