@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 2.3.0
+
+- Restore model.requestIcons, model.releaseIcons as stubs since mods were calling them directly.
+
 ## 2.2.1
 
 - Fixed modinfo error left from local testing

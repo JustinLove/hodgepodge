@@ -59,3 +59,12 @@ Passes:
 Narrow (five column) build tabs will be expanded as required.
 
 You should **not** shadow build.js, but you must still shadow `unit_list.json`.
+
+## Legacy `icon_atlas` Methods
+
+These methods formally performed icon limit management. They are now stub implementations, documented here since some mods were calling them directly and they must be considered part of the public interface.
+
+- model.requestIcons
+  - model.requestIcons(['one', 'two', {three: ['fallbackthree']}])
+  - model.requestIcons({one: ['fallbackone'], two: ['fallbacktwo']})
+- model.releaseIcons(['one', 'two', 'three']) // now a no-op stub
