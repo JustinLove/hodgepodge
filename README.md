@@ -58,6 +58,4 @@ Passes:
 
 Narrow (five column) build tabs will be expanded as required.
 
-Units unused in the current game mode (Deep Space Radar in Titans, titans in Classic) are removed to free up build slots and icons.
-
 You should **not** shadow build.js, but you must still shadow `unit_list.json`.
