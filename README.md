@@ -56,8 +56,6 @@ Passes:
 4. Dump the rest into ammo tab
 5. Still going? Dump units into extra0..extraN tabs
 
-Narrow (five column) build tabs will be expanded as required.
-
 You should **not** shadow build.js, but you must still shadow `unit_list.json`.
 
 ## Legacy `icon_atlas` Methods

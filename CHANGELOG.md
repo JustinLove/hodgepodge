@@ -1,5 +1,9 @@
 # HodgePodge
 
+## 2.4.0
+
+- Remove last column management
+
 ## 2.3.0
 
 - Restore model.requestIcons, model.releaseIcons as stubs since mods were calling them directly.

@@ -10,14 +10,4 @@
       }
     })
   }
-
-  if (model.buildSet) {
-    model.buildSet.subscribe(function(set) {
-      if (!set) return
-      set.tabs().forEach(function(tab) {
-        var its = tab.items()
-        tab.skipLastRow(!(its[5].id || its[11].id || its[17].id))
-      })
-    })
-  }
 })()
